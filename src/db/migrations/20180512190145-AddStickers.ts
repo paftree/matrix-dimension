@@ -76,6 +76,20 @@ export default {
                     license: "CC BY-NC 4.0",
                     licensePath: "/licenses/cc_by-nc_4.0.txt",
                 },
+                {
+                    // id: 4
+                    type: "stickerpack",
+                    name: "PossumPack",
+                    avatarUrl: "mxc://t2bot.io/01e06e2489185ac5b1fc73c904e1d5f0",
+                    isEnabled: true,
+                    isPublic: true,
+                    description: "Random Crap",
+                    authorType: "various",
+                    authorReference: null,
+                    authorName: null,
+                    license: "None",
+                    licensePath: null,
+                },
             ]))
             .then(() => queryInterface.bulkInsert("dimension_stickers", [
                 { packId: 1, name: "Happy", description: "A very happy husky", imageMxc: "mxc://t2bot.io/b4636e93388542f3cad8fcbb825adf36", thumbnailMxc: "mxc://t2bot.io/920b7a90c8d66f0de0bc2e4e7f1b3d90", mimetype: "image/png", thumbnailWidth: 512, thumbnailHeight: 512 },
@@ -116,6 +130,9 @@ export default {
                 { packId: 3, name: "Sad", description: "A sad cat :(", imageMxc: "mxc://t2bot.io/3bbf2d94865298661af30816ce4a7a75", thumbnailMxc: "mxc://t2bot.io/3bbf2d94865298661af30816ce4a7a75", mimetype: "image/png", thumbnailWidth: 512, thumbnailHeight: 512 },
                 { packId: 3, name: "Disappointed", description: "This cat is disappointed", imageMxc: "mxc://t2bot.io/45a1b772d51ddbc374768940b4a80f3c", thumbnailMxc: "mxc://t2bot.io/45a1b772d51ddbc374768940b4a80f3c", mimetype: "image/png", thumbnailWidth: 512, thumbnailHeight: 512 },
                 { packId: 3, name: "Happy", description: "A happy cat", imageMxc: "mxc://t2bot.io/106b63dbb114ca121d09765971a8b093", thumbnailMxc: "mxc://t2bot.io/106b63dbb114ca121d09765971a8b093", mimetype: "image/png", thumbnailWidth: 512, thumbnailHeight: 512 },
+                
+                { packId: 4, name: "YoshiP", description: "Please Look Forward To It", imageMxc: "mxc://inferiorlattice.com/vrmBfbyyBuBwaaGbfLRjOblf", thumbnailMxc: "mxc://inferiorlattice.com/rdxdGDOXQyfraScWABQMljov", mimetype: "image/jpeg", thumbnailWidth: 164, thumbnailHeight: 164 },
+                { packId: 4, name: "Squiddie Pie", description: "Squiddie Pie", imageMxc: "mxc://inferiorlattice.com/aWcjcGRBKqybCilcyftEiesW", thumbnailMxc: "mxc://inferiorlattice.com/CICkNroAWmKikEudKqVTEHQx", mimetype: "image/png", thumbnailWidth: 600, thumbnailHeight: 600 },
             ]));
     },
     down: (queryInterface: QueryInterface) => {
