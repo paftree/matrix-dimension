@@ -40,7 +40,7 @@ export class ScalarWidgetApi {
             data: {
                 description: sticker.description,
                 content: {
-                    url: sticker.thumbnail.mxc,
+                    url: sticker.image.mxc,
                     info: {
                         mimetype: sticker.image.mimetype,
                         w: sticker.thumbnail.width / 2,
