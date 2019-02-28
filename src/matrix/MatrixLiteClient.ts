@@ -1,9 +1,16 @@
 import { doClientApiCall } from "./helpers";
 import config from "../config";
+import * as request from "request";
+import { LogService } from "matrix-js-snippets";
 
 export interface MatrixUrlPreview {
     // This is really the only parameter we care about
     "og:title"?: string;
+}
+
+export interface MatrixUserProfile {
+    displayname?: string;
+    avatar_url?: string;
 }
 
 export class MatrixLiteClient {
@@ -35,6 +42,22 @@ export class MatrixLiteClient {
             {access_token: this.accessToken}
         );
         return response['user_id'];
+    }
+
+    public async leaveRoom(roomId: string): Promise<string> {
+        return doClientApiCall(
+            "POST",
+            "/_matrix/client/r0/rooms/" + roomId + "/leave",
+            {access_token: this.accessToken}
+        );
+    }
+
+    public async getProfile(userId: string): Promise<MatrixUserProfile> {
+        return doClientApiCall(
+            "GET",
+            "/_matrix/client/r0/profile/" + userId,
+            {access_token: this.accessToken},
+        );
     }
 
     public async getDisplayName(): Promise<string> {
@@ -71,5 +94,41 @@ export class MatrixLiteClient {
             {access_token: this.accessToken},
             {avatar_url: newUrl},
         );
+    }
+
+    public async upload(content: Buffer, contentType: string): Promise<string> {
+        return doClientApiCall(
+            "POST",
+            "/_matrix/media/r0/upload",
+            {access_token: this.accessToken},
+            content,
+            contentType,
+        ).then(r => r["content_uri"]);
+    }
+
+    public async uploadFromUrl(url: string, contentType: string): Promise<string> {
+        const buffer = await this.downloadFromUrl(url);
+        return this.upload(buffer, contentType);
+    }
+
+    public async downloadFromUrl(url: string): Promise<any> {
+        return new Promise((resolve, reject) => {
+            request({
+                method: "GET",
+                url: url,
+                encoding: null,
+            }, (err, res, _body) => {
+                if (err) {
+                    LogService.error("MatrixLiteClient", "Error downloading file from " + url);
+                    LogService.error("MatrixLiteClient", err);
+                    reject(err);
+                } else if (res.statusCode !== 200) {
+                    LogService.error("MatrixLiteClient", "Got status code " + res.statusCode + " while calling url " + url);
+                    reject(new Error("Error in request: invalid status code"));
+                } else {
+                    resolve(res.body);
+                }
+            });
+        });
     }
 }

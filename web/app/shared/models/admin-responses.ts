@@ -7,6 +7,7 @@ export interface FE_DimensionConfig {
         name: string;
         userId: string;
         federationUrl: string;
+        federationHostname: string;
         clientServerUrl: string;
     };
 }
@@ -36,4 +37,24 @@ export interface FE_NebConfiguration {
     appserviceId?: string;
     upstreamId?: string;
     integrations: FE_Integration[];
+}
+
+export interface FE_CustomSimpleBot extends FE_CustomSimpleBotTemplate {
+    id: number;
+    type: string;
+}
+
+export interface FE_CustomSimpleBotTemplate {
+    name: string;
+    avatarUrl: string;
+    description: string;
+    isEnabled: boolean;
+    isPublic: boolean;
+    userId: string;
+    accessToken: string;
+}
+
+export interface FE_UserProfile {
+    name: string;
+    avatarUrl: string;
 }
